@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	char tokens_array[50] = {'\0'}, push_array[50] = {'\0'};
 	size_t length = 0;
 	stack_t *stack = NULL;
-	unsigned int line_number = 0;
+	unsigned int line_number = 1;
 
 	if (argc != 2)
 	{ /* If the incorrect amount of arguments are passed */
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	/* Open source file */
 	fd = fopen(argv[1], "r");
 
-	if (fd == NULL)
+	if (!fd)
 	{ /* If file can't be opened */
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 	for (; getline(&line, &length, fd) != EOF; line_number++)
 	{
 		token = strtok((line), " \t\n");
-		if (token == NULL)
+		if (!token)
 		{ /* If line is empty */
 			free(line);
 			line = NULL;
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
 		f = get_func(&stack, line_number, tokens_array);
 
-		if (f == NULL)
+		if (!f)
 		{ /* If no function is found */
 			fprintf(stderr, "Error: malloc failed\n");
 			close_error();
@@ -57,8 +57,11 @@ int main(int argc, char **argv)
 		if (strcmp(tokens_array, "push") == 0)
 		{ /* If the command is push */
 			token = strtok(NULL, " \t\n");
-			if (token == NULL)
+			if (!token)
 			{ /* If token is empty */
+				free(line);
+				line = NULL;
+				free_stack(&stack);
 				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				close_error();
 			}
