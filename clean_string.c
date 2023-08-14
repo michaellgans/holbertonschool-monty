@@ -20,5 +20,5 @@ int cleanstr(char *line)
 		}
 		x++;
 	}
-	return (SUCCESS);
+	return (0);
 }

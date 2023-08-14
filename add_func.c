@@ -8,3 +8,18 @@
 
 void add_func(stack_t **stack, unsigned int line_number)
 {
+	stack_t *current = *stack;
+
+	if (current == NULL || current->next == NULL)
+	{ /* print error, free, close */
+		fprintf(stderr, "L%i: can't add, stack too short\n", line_number);
+		free(stack);
+		fclose(fd);
+	}
+
+	current->next->n += current->n;
+	*stack = current->next;
+	(*stack)->prev = NULL;
+
+	free(current);
+}

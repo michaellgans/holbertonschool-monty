@@ -3,6 +3,15 @@
 
 /* Libraries */
 
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+
+/* Global Variables */
+FILE *fd;
+
 /* Structs */
 
 /**
