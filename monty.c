@@ -59,13 +59,10 @@ int main(int argc, char **argv)
 			{
 				array[y].f(&stack, line_number);
 			}
-			else
-			{
-				fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
-				exit(EXIT_FAILURE);
-			}
 			y--;
 		}
+		fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
+		exit(EXIT_FAILURE);
 	}
 	/* Free and Return */
 	free(tokens_array);
