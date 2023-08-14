@@ -17,7 +17,7 @@ void push_helper(stack_t **stack, unsigned int line_number, char *pushNum)
 		(*stack)->n = atoi(pushNum);
 		if ((*stack)->n == 0 || (pushNum[0] != '-' && (*stack)->n == -1))
 		{ /* if it isn't an integer */
-			fprintf(stderr, "Error: L%d: usage: push integer\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			free_stack(stack);
 			close_error();
                 }
