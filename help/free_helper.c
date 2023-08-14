@@ -1,9 +1,8 @@
 #include "monty.h"
 
 /**
- * free_stack - free memory allocated for stack
- * @stack: ptr to stack (linked list)
- * Return: void
+ * free_stack - free lists
+ * @stack: pointer to beginning of linked list
  */
 
 void free_stack(stack_t **stack)
@@ -12,6 +11,7 @@ void free_stack(stack_t **stack)
 	{
 		return;
 	}
+
 	free_stack(&((*stack)->next));
 	free(*stack);
 	*stack = NULL;

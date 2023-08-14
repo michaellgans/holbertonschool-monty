@@ -1,29 +1,22 @@
-#ifndef MONTY_H
-#define MONTY_H
+#ifndef MAIN_H
+#define MAIN_H
 
-/* Libraries */
-
-#include <stddef.h>
+#include <ctype.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
 #include <string.h>
-
-/* Global Variables */
-FILE *fd;
-
-/* Structs */
+#include <stdarg.h>
+#include <fcntl.h>
 
 /**
- * struct stack_s - doubly linked list representation of a stack (or queue)
+ * struct stack_s - doubly linked list node
  * @n: integer
- * @prev: points to the previous element of the stack (or queue)
- * @next: points to the next element of the stack (or queue)
+ * @prev: points to the previous element of the stack
+ * @next: points to the next element of the stack
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO
  */
-
 typedef struct stack_s
 {
 	int n;
@@ -37,26 +30,29 @@ typedef struct stack_s
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO
  */
-
 typedef struct instruction_s
 {
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* Prototypes */
-void push_func(stack_t **stack, unsigned int line_number);
-void pall_func(stack_t **stack, unsigned int line_number);
-void pint_func(stack_t **stack, unsigned int line_number);
-void pop_func(stack_t **stack, unsigned int line_number);
-void swap_func(stack_t **stack, unsigned int line_number);
-void add_func(stack_t **stack, unsigned int line_number);
-void nop_func(stack_t **stack, unsigned int line_number);
-void (*get_func(stack_t **stack, int line, char *op))(stack_t **, unsigned int);
-void close_error(void);
-void push_helper(stack_t **stack, unsigned int line_number, char *pushNum);
+void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+
+void push(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+
+void (*get_func(stack_t **stack, int l, char *code))(stack_t **, unsigned int);
+void set_n(stack_t **stack, unsigned int line_num, char *num);
 void free_stack(stack_t **stack);
+void close_error(void);
+void pushOp(stack_t **stack, unsigned int line_number, char *pushNum);
+
+/*================   GLOBAL VARIABLE   ==================*/
+FILE *fd;
 
 #endif
