@@ -9,22 +9,16 @@
 
 void push_helper(stack_t **stack, unsigned int line_number, char *pushNum)
 {
-	/* Declare Variables */
-	char *endptr;
-	long int num = strtol(pushNum, &endptr, 10);
-
 	if (strcmp(pushNum, "0") == 0)
-	{
 		(*stack)->n = 0;
-	}
-	else
+	if (strcmp(pushNum, "0") != 0)
 	{
-		if (*endptr != '\0')
-		{ /* If it's not 0 */
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		(*stack)->n = atoi(pushNum);
+		if ((*stack)->n == 0 || (pushNum[0] != '-' && (*stack)->n == -1))
+		{
+			fprintf(stderr, "Error: L%d: usage: push integer\n", line_number);
 			free_stack(stack);
 			close_error();
 		}
-	(*stack)->n = (int)num;
 	}
 }
