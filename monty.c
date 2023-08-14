@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	char tokens_array[50] = {'\0'}, push_array[50] = {'\0'};
 	size_t length = 0;
 	stack_t *stack = NULL;
-	unsigned int line_number;
+	unsigned int line_number = 0;
 
 	if (argc != 2)
 	{ /* If the incorrect amount of arguments are passed */
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	for (line_number = 1; getline(&line, &length, fd) != EOF; line_number++)
+	for (; getline(&line, &length, fd) != EOF; line_number++)
 	{
 		token = strtok((line), " \t\n");
 		if (token == NULL)
@@ -59,9 +59,6 @@ int main(int argc, char **argv)
 			token = strtok(NULL, " \t\n");
 			if (token == NULL)
 			{ /* If token is empty */
-				free(line);
-				line = NULL;
-				free_stack(&stack);
 				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				close_error();
 			}
