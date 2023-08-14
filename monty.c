@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	size_t length = 0;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
-	char *line = NULL, *opcode = NULL;
+	char *line = NULL;
 	int y;
 
 	if (argc != 2)
@@ -58,11 +58,15 @@ int main(int argc, char **argv)
 			if (strcmp(tokens_array[0], array[y].opcode) == 0)
 			{
 				array[y].f(&stack, line_number);
+				break;
 			}
 			y--;
 		}
-		fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
-		exit(EXIT_FAILURE);
+		if (y < 0)
+		{
+			fprintf(stderr, "L%i: unknown instruction %s\n", line_number, tokens_array[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
 	/* Free and Return */
 	free(tokens_array);
