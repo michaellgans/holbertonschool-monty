@@ -11,14 +11,7 @@ void push_func(stack_t **stack, unsigned int line_number)
 	/* Create pointer to new node */
 	stack_t *new_node;
 	int n = 0;
-
-	if (tok_num(NULL, " \t\n") == 0)
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
-	n = atoi(tokstr(NULL, "t \t\n")[0]);
+	(void)line_number;
 
 	/* Allocate memory for new node */
 	new_node = malloc(sizeof(instruction_t));
@@ -26,6 +19,7 @@ void push_func(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		free(new_node);
+		close_error();
 	}
 
 	/* Add new node to list */

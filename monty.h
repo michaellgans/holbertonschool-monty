@@ -54,9 +54,9 @@ void pop_func(stack_t **stack, unsigned int line_number);
 void swap_func(stack_t **stack, unsigned int line_number);
 void add_func(stack_t **stack, unsigned int line_number);
 void nop_func(stack_t **stack, unsigned int line_number);
-int cleanstr(char *line);
-int tok_num(char *str, char *delims);
-char **tokstr(char *line, char *delims);
-int substrLen(char *str, char *delims);
+void (*get_func(stack_t **stack, int line, char *operation))(stack_t **, unsigned int);
+void close_error(void);
+void push_helper(stack_t **stack, unsigned int line_number, char *pushNum);
+void free_stack(stack_t **stack);
 
 #endif
